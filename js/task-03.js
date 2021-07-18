@@ -26,33 +26,21 @@ const images = [
   },
 ];
 
-
 const galleryListEl = document.querySelector('#gallery');
 
-const createImageEl = ({ url, alt }) => {
-  const itemEl = document.createElement('li');
-  const imageEl = document.createElement('img');
+const createGalleryItem = ({ url, alt }) => 
+  `<li>
+  <img src = "${url}"
+  alt ="${alt}"
+  width = 370>
+  </li>`;
 
-  imageEl.src = url
-  imageEl.alt = alt
-  imageEl.width = 320
+const gallery = images.reduce(
+  (accum, image) =>
+  accum + createGalleryItem(image),
+  ' '
+);
 
-  itemEl.append(imageEl);
-  return itemEl;
-};
+galleryListEl.insertAdjacentHTML('afterBegin', gallery);
 
-const gallery = images.map(createImageEl);
-
-console.log(gallery);
-
-galleryListEl.append(...gallery);
-
-
-// galleryImagesEl.insertAdjacentHTML('afterbegin', `<li>
-// <img src = ${images[0].url}
-// alt = ${images[0].alt}
-// width = "640">
-// </li >`);
-// чтобы обеспечить перенос строк в коде, нужно использовать обратные кавычки, как для шаблонной строки - ``
-// width вставлено для масштабирования только.
-// Осталось написать перебирающую функцию. (edited) 
+galleryListEl.setAttribute('style', 'list-style: none');
